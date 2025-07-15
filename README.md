@@ -1,14 +1,14 @@
 # Ici tout commence credits dataset
 
 ## Overview
-This repository contains the `credits` dataset, detailing episode credit data for characters in the French television series *Ici tout commence*.
+This repository contains the `credits` dataset, detailing episode credit data for characters in the French television series *Ici tout commence*. It also contains `code.py` which is a Python script that uses the dataset.
 
-## Description
-- **File**: `credits.csv`
-- **Content**: Episode credit information for characters, including fields such as character names, episode numbers, and roles.
-- **Format**: CSV
+| file | description |
+|---------|---------|
+| `credits.csv` | Dataset with episode credit information for characters in *Ici tout commence* | 
+| `code.py` | Python script that analyzes character appearances, co-occurences and more using the `credits.csv` dataset | 
 
 ## Usage
-1. Clone the repository:
+- Clone the repository:
    ```bash
    git clone https://github.com/slappepolsen/itc-credits.git

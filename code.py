@@ -1,3 +1,13 @@
+# this Python script performs the following tasks:
+#     - Loads and preprocesses a CSV dataset containing episode and character information.
+#     - Calculates total character appearances and lists the most frequently appearing characters.
+#     - Reshapes the data to analyze which characters appear in which episodes and maps episodes to plot groups.
+#     - Visualizes the appearance arc of a specific character (e.g., "Rose") using a bar plot.
+#     - Identifies top characters for each plot group.
+#     - Computes co-occurrence statistics for character pairs (i.e., how often two characters appear in the same episode).
+#     - Displays the most common character pair co-occurrences.
+#     - Creates and visualizes a heatmap of co-occurrence counts among the top N most connected characters.
+
 import pandas as pd
 import itertools
 import matplotlib.pyplot as plt

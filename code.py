@@ -37,29 +37,15 @@ df_long['plot_id'] = df_long['episode_id'].map(plot_mapping)
 
 # === Character Popularity ===
 character_appearances = df_characters[['episode', 'total_appearances']].sort_values(by='total_appearances', ascending=False)
-print("\nTop 10 Characters by Total Appearances:")
+print("\ntop 10 characters by total appearances:")
 print(character_appearances.head(10))
 
-# === Character Arc Plot (example: Rose) ===
-if 'Rose' in df_characters['episode'].values:
-    rose_appearances = df_characters[df_characters['episode'] == 'Rose'][episode_cols].iloc[0]
-    plt.figure(figsize=(15, 6))
-    rose_appearances.plot(kind='bar')
-    plt.title("Rose's Appearances Per Episode")
-    plt.xlabel('Episode ID')
-    plt.ylabel('Appearance')
-    plt.xticks(rotation=90, fontsize=6)
-    plt.tight_layout()
-    plt.show()
-else:
-    print("\n'Rose' character not found in the dataset.")
-
-# === Plot Dominance: Top Characters Per Plot ===
+# === Plot dominance: top characters per plot ===
 plot_character_counts = df_long.groupby(['plot_id', 'character']).size().reset_index(name='appearances_in_plot')
-print("\nTop Characters per Plot Group:")
+print("\ntop characters per arc:")
 for plot_id in plot_character_counts['plot_id'].unique():
     top_chars = plot_character_counts[plot_character_counts['plot_id'] == plot_id].nlargest(3, 'appearances_in_plot')
-    print(f"Plot {int(plot_id)}: {', '.join(top_chars['character'])}")
+    print(f"plot {int(plot_id)}: {', '.join(top_chars['character'])}")
 
 # === Co-occurrence Analysis ===
 episode_character_map = df_long.groupby('episode_id')['character'].apply(list).to_dict()
@@ -69,39 +55,39 @@ for characters in episode_character_map.values():
         pair = tuple(sorted((char1, char2)))
         co_occurrence_counts[pair] = co_occurrence_counts.get(pair, 0) + 1
 
-co_occurrence_df = pd.DataFrame(co_occurrence_counts.items(), columns=['Character_Pair', 'Co_occurrence_Count'])
-co_occurrence_df[['Character_A', 'Character_B']] = pd.DataFrame(co_occurrence_df['Character_Pair'].tolist(), index=co_occurrence_df.index)
-co_occurrence_df.drop(columns=['Character_Pair'], inplace=True)
+co_occurrence_df = pd.DataFrame(co_occurrence_counts.items(), columns=['character_pair', 'co_occurrence_count'])
+co_occurrence_df[['character_A', 'character_B']] = pd.DataFrame(co_occurrence_df['character_pair'].tolist(), index=co_occurrence_df.index)
+co_occurrence_df.drop(columns=['character_pair'], inplace=True)
 
-print("\nTop 10 Character Pair Co-occurrences:")
-print(co_occurrence_df.sort_values(by='Co_occurrence_Count', ascending=False).head(10))
+print("\ntop 10 character pair co-occurrences:")
+print(co_occurrence_df.sort_values(by='co_occurrence_count', ascending=False).head(10))
 
-# === Heatmap of Top N Character Co-occurrences ===
+# === Heatmap of top N character co-occurrences ===
 N_TOP_CHARACTERS = 15
 co_sum = {}
 
 for _, row in co_occurrence_df.iterrows():
-    co_sum[row['Character_A']] = co_sum.get(row['Character_A'], 0) + row['Co_occurrence_Count']
-    co_sum[row['Character_B']] = co_sum.get(row['Character_B'], 0) + row['Co_occurrence_Count']
+    co_sum[row['character_A']] = co_sum.get(row['character_A'], 0) + row['co_occurrence_count']
+    co_sum[row['character_B']] = co_sum.get(row['character_B'], 0) + row['co_occurrence_count']
 
 top_characters = sorted(co_sum.items(), key=lambda x: x[1], reverse=True)[:N_TOP_CHARACTERS]
 top_character_names = [char for char, _ in top_characters]
 
-print(f"\nTop {N_TOP_CHARACTERS} Characters by Total Co-occurrence:")
+print(f"\ntop {N_TOP_CHARACTERS} characters by total co-occurrence:")
 for char, count in top_characters:
     print(f"- {char}: {count}")
 
 # Filter for heatmap
 filtered_df = co_occurrence_df[
-    co_occurrence_df['Character_A'].isin(top_character_names) &
-    co_occurrence_df['Character_B'].isin(top_character_names)
+    co_occurrence_df['character_A'].isin(top_character_names) &
+    co_occurrence_df['character_B'].isin(top_character_names)
 ]
 
 # Pivot for symmetric matrix
 matrix = filtered_df.pivot_table(
-    values='Co_occurrence_Count',
-    index='Character_A',
-    columns='Character_B',
+    values='co_occurrence_count',
+    index='character_A',
+    columns='character_B',
     fill_value=0
 )
 
@@ -116,10 +102,10 @@ mask = np.triu(np.ones_like(matrix, dtype=bool))
 plt.figure(figsize=(14, 12))
 sns.heatmap(matrix, mask=mask, annot=True, cmap='viridis', fmt='g',
             linewidths=.5, linecolor='lightgray',
-            cbar_kws={'label': 'Co-occurrence Count'})
-plt.title(f'Character Co-occurrence Heatmap (Top {N_TOP_CHARACTERS})', size=18)
-plt.xlabel('Character', size=14)
-plt.ylabel('Character', size=14)
+            cbar_kws={'label': 'co-occurrence count'})
+plt.title(f'character co-occurrence heatmap (top {N_TOP_CHARACTERS})', size=18)
+plt.xlabel('character', size=14)
+plt.ylabel('character', size=14)
 plt.xticks(rotation=45, ha='right')
 plt.yticks(rotation=0)
 plt.tight_layout()

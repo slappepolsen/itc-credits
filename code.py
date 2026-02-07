@@ -15,7 +15,7 @@ import seaborn as sns
 import numpy as np
 
 # === Load data ===
-file_path = "your_dataset_path_here.csv"  # Replace with actual file path or use a file dialog if needed
+file_path = "data.csv"
 df = pd.read_csv(file_path)
 
 # === Preprocessing ===
@@ -110,3 +110,4 @@ plt.xticks(rotation=45, ha='right')
 plt.yticks(rotation=0)
 plt.tight_layout()
 plt.show()
+

@@ -5,6 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <title>Ici tout commence: character appearances</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
       --bg: #fbf9f5;
@@ -19,9 +22,9 @@
       --accent-dim: #a5566a;
       --accent-soft: #f6e9e7;
       --tooltip-accent: #f0b8a4;
-      --mono: ui-monospace, "Cascadia Code", "SF Mono", Menlo, Monaco, Consolas, monospace;
-      --serif: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, "Times New Roman", serif;
-      --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+      --mono: "JetBrains Mono", ui-monospace, "Cascadia Code", "SF Mono", Menlo, Monaco, Consolas, monospace;
+      --serif: "JetBrains Mono", "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, "Times New Roman", serif;
+      --sans: "JetBrains Mono", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
       --s4: #923548;
       --s5: #1478c7;
       --s6: #3f8a55;
@@ -96,7 +99,6 @@
       color: var(--muted);
       font-size: 0.95rem;
       margin-top: 0.5rem;
-      max-width: 42rem;
     }
 
     nav.tabs {
@@ -138,6 +140,47 @@
 
     .controls.hidden { display: none; }
 
+    .inline-season-picker { margin-bottom: 0.9rem; }
+
+    .timeline-picker {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.35rem 0.7rem;
+      border: 1px solid var(--border-strong);
+      border-radius: 4px;
+      background: var(--accent-soft);
+    }
+
+    .timeline-picker-label {
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--accent);
+    }
+
+    .timeline-picker select {
+      border: none;
+      background: none;
+      padding: 0.1rem 0.2rem;
+    }
+
+    .btn-shuffle {
+      font: inherit;
+      font-family: var(--mono);
+      font-size: 0.85rem;
+      font-weight: 700;
+      padding: 0.35rem 0.65rem;
+      border: 1px solid var(--accent-dim);
+      border-radius: 4px;
+      background: var(--bg);
+      color: var(--accent);
+      cursor: pointer;
+    }
+
+    .btn-shuffle:hover { background: var(--accent); color: var(--bg); }
+
     input[type="search"],
     select {
       font: inherit;
@@ -172,21 +215,8 @@
     h2 {
       font-family: var(--serif);
       font-size: 1.2rem;
-      font-weight: 400;
+      font-weight: 700;
       margin-bottom: 0.75rem;
-      padding-left: 0.85rem;
-      position: relative;
-    }
-
-    h2::before {
-      content: "";
-      position: absolute;
-      left: 0;
-      top: 0.2em;
-      bottom: 0.22em;
-      width: 3px;
-      background: var(--accent);
-      border-radius: 1px;
     }
 
     h3 {
@@ -216,6 +246,19 @@
     }
 
     .caption.departure { color: var(--accent-dim); }
+
+    /* More important than a figure/table caption, but not a full lede ---- */
+
+    .status-line {
+      font-size: 0.98rem;
+      color: var(--muted);
+      font-family: var(--serif);
+      line-height: 1.55;
+      margin-top: 0.3rem;
+      margin-bottom: 0.6rem;
+    }
+
+    .status-line.departure { color: var(--accent-dim); }
 
     .info-box {
       display: flex;
@@ -251,8 +294,12 @@
 
     th {
       background: var(--code-bg);
-      font-weight: 600;
-      font-size: 0.78rem;
+      font-weight: 700;
+      font-size: 0.88rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--fg);
+      border-bottom: 2px solid var(--border-strong);
     }
 
     th[data-col] { cursor: pointer; user-select: none; }
@@ -281,13 +328,13 @@
     #panel-by-character th[data-col] { white-space: nowrap; }
 
     #panel-by-character th:nth-child(1),
-    #panel-by-character td:nth-child(1) { width: auto; }
+    #panel-by-character td:nth-child(1) { width: 14rem; }
 
     #panel-by-character th:nth-child(2),
     #panel-by-character td:nth-child(2) { width: 6.5rem; }
 
     #panel-by-character th:nth-child(3),
-    #panel-by-character td:nth-child(3) { width: 13rem; }
+    #panel-by-character td:nth-child(3) { width: auto; }
 
     #panel-by-character th:nth-child(4),
     #panel-by-character td:nth-child(4) { width: 11.5rem; }
@@ -341,14 +388,14 @@
 
     .lede {
       font-family: var(--serif);
-      font-size: 1.1rem;
+      font-size: 0.98rem;
       line-height: 1.65;
       color: var(--fg);
-      max-width: 44rem;
-      padding: 0.1rem 0 1.5rem 1.1rem;
+      padding: 0.9rem 1.15rem;
       margin-bottom: 1.75rem;
-      border-bottom: 1px solid var(--border);
-      border-left: 3px solid var(--accent);
+      background: var(--accent-soft);
+      border: 1px solid #ecd5d3;
+      border-radius: 6px;
     }
 
     .lede strong {
@@ -723,15 +770,6 @@
       border-bottom: 1px solid var(--border);
     }
 
-    table.co2-pairs th {
-      font-family: var(--mono);
-      font-size: 0.72rem;
-      text-transform: uppercase;
-      letter-spacing: 0.04em;
-      color: var(--muted);
-      font-weight: normal;
-      background: none;
-    }
 
     table.co2-pairs td.n {
       font-family: var(--mono);
@@ -819,7 +857,7 @@
 
     .arc-row {
       display: grid;
-      grid-template-columns: 2.8rem 2.4rem 1fr 8rem 15rem;
+      grid-template-columns: 2.8rem 2.4rem 1fr 8rem 18rem;
       gap: 0.75rem;
       align-items: baseline;
       padding: 0.4rem 0.2rem;
@@ -939,7 +977,7 @@
     <header>
       <p class="kicker">Character appearances</p>
       <h1>Ici tout commence</h1>
-      <p class="subtitle">Cast appearances, arrivals and departures, on-screen pairings, and ratings, tracked from season 4 onward.</p>
+      <p class="subtitle">Cast appearances, arrivals, departures, and viewership numbers, tracked from season 4 onward.</p>
     </header>
 
     <nav class="tabs">
@@ -962,7 +1000,11 @@
         <option value="5">Season: 5 (993-1252)</option>
         <option value="6">Season: 6 (1253-1512)</option>
       </select>
-      <select id="timeline-select" style="display:none"></select>
+      <span class="timeline-picker" id="timeline-picker" style="display:none">
+        <label for="timeline-select" class="timeline-picker-label">Pick a character</label>
+        <select id="timeline-select"></select>
+        <button type="button" id="timeline-shuffle" class="btn-shuffle" title="Jump to a random character">🔀 Shuffle</button>
+      </span>
       <select id="heatmap-sort" style="display:none">
         <option value="count">Sort: most appearances</option>
         <option value="alpha">Sort: alphabetical</option>
@@ -1388,8 +1430,7 @@
 
     function buildComeGoSeasonSection(season) {
       const types = [
-        { type: "arrival", role: "Main", title: "New main characters" },
-        { type: "arrival", role: "Guest", title: "Guest arrivals" },
+        { type: "arrival", title: "New characters" },
         { type: "return", title: "Returns" },
         { type: "departure", title: "Departures" },
       ];
@@ -1620,7 +1661,7 @@
       const axisTicks = tickIdxs.map(i => {
         const x = xAt(i).toFixed(2);
         return `<line x1="${x}" y1="${baseY}" x2="${x}" y2="${baseY + 4}" stroke="#c9bfa9" stroke-width="1"/>
-          <text x="${x}" y="${baseY + 15}" text-anchor="middle" font-size="8" font-family="ui-monospace, Menlo, Consolas, monospace" fill="#8a8371">${formatDateAxis(rows[i].date)}</text>`;
+          <text x="${x}" y="${baseY + 15}" text-anchor="middle" font-size="8" font-family="'JetBrains Mono', ui-monospace, Menlo, Consolas, monospace" fill="#8a8371">${formatDateAxis(rows[i].date)}</text>`;
       }).join("");
 
       return `<svg class="ts-chart" viewBox="0 0 ${w} ${h}" width="${w}" height="${h}" role="img">
@@ -2091,7 +2132,7 @@
       canvas.style.height = H + "px";
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       ctx.clearRect(0, 0, W, H);
-      ctx.font = "11px ui-monospace, monospace";
+      ctx.font = "11px 'JetBrains Mono', ui-monospace, monospace";
       ctx.textBaseline = "middle";
 
       for (let j = 0; j < m; j++) {
@@ -2103,8 +2144,8 @@
         ctx.textAlign = "left";
         ctx.fillStyle = coV2LabelColor(name, highlightSet);
         ctx.font = highlightSet.has(name)
-          ? "bold 11px ui-monospace, monospace"
-          : "11px ui-monospace, monospace";
+          ? "bold 11px 'JetBrains Mono', ui-monospace, monospace"
+          : "11px 'JetBrains Mono', ui-monospace, monospace";
         ctx.fillText(coFirstName(name), 0, 0);
         ctx.restore();
       }
@@ -2115,8 +2156,8 @@
         const name = coV2.order[i];
         ctx.fillStyle = coV2LabelColor(name, highlightSet);
         ctx.font = highlightSet.has(name)
-          ? "bold 11px ui-monospace, monospace"
-          : "11px ui-monospace, monospace";
+          ? "bold 11px 'JetBrains Mono', ui-monospace, monospace"
+          : "11px 'JetBrains Mono', ui-monospace, monospace";
         ctx.fillText(coFirstName(name), LABEL_W - 8, y);
       }
 
@@ -2315,23 +2356,24 @@
 
       if (!coV2.bound) {
         content.innerHTML = `
-          <div class="co2-controls">
-            <select id="co2-sortMode">
-              <option value="total_desc">Sort: appearances</option>
-              <option value="strength_desc">Sort: co-occurrence strength</option>
-              <option value="alpha">Sort: A-Z</option>
-            </select>
-            <label class="co2-field">Top
-              <input type="range" id="co2-topN" min="10" max="${topMax}" value="${topDefault}" step="5">
-              <span class="val" id="co2-topNVal">${topDefault}</span>
-            </label>
-            <label class="co2-field">
-              <input type="checkbox" id="co2-normToggle">
-              % shared episodes
-            </label>
-          </div>
           <section>
             <h2>Co-appearance grid</h2>
+            <div class="co2-controls">
+              <span id="pairsv2-season-anchor"></span>
+              <select id="co2-sortMode">
+                <option value="total_desc">Sort: appearances</option>
+                <option value="strength_desc">Sort: co-occurrence strength</option>
+                <option value="alpha">Sort: A-Z</option>
+              </select>
+              <label class="co2-field">Top
+                <input type="range" id="co2-topN" min="10" max="${topMax}" value="${topDefault}" step="5">
+                <span class="val" id="co2-topNVal">${topDefault}</span>
+              </label>
+              <label class="co2-field">
+                <input type="checkbox" id="co2-normToggle">
+                % shared episodes
+              </label>
+            </div>
             <p class="caption">${escapeHtml(analysisWindow(eps))} How often two characters share an episode.</p>
             <div class="co2-matrix-wrap">
               <canvas id="co2-canvas"></canvas>
@@ -2379,7 +2421,7 @@
       const counts = appearanceCounts();
       const names = Object.keys(counts).sort((a, b) => a.localeCompare(b, "fr"));
       sel.innerHTML = names.map(n =>
-        `<option value="${escapeAttr(n)}">Character: ${escapeHtml(n)}</option>`
+        `<option value="${escapeAttr(n)}">${escapeHtml(n)}</option>`
       ).join("");
       timelineChar = names.includes("Rose Latour") ? "Rose Latour" : names[0];
       sel.value = timelineChar;
@@ -2387,15 +2429,26 @@
 
     function render() {
       const searchEl = document.getElementById("search");
-      const timelineSel = document.getElementById("timeline-select");
+      const timelinePicker = document.getElementById("timeline-picker");
       const seasonSel = document.getElementById("season-select");
       const heatmapSortSel = document.getElementById("heatmap-sort");
+      const controlsBar = document.getElementById("controls");
       const hideSearchTabs = ["overview", "come-go", "pairs-v2", "viewership"];
       const seasonSelectTabs = ["overview", "pairs-v2", "heatmap"];
       searchEl.style.display = (activeTab === "timeline" || hideSearchTabs.includes(activeTab)) ? "none" : "";
-      timelineSel.style.display = activeTab === "timeline" ? "" : "none";
+      timelinePicker.style.display = activeTab === "timeline" ? "" : "none";
       seasonSel.style.display = seasonSelectTabs.includes(activeTab) ? "" : "none";
       heatmapSortSel.style.display = activeTab === "heatmap" ? "" : "none";
+
+      // Some controls only scope part of a panel's content (or belong closer
+      // to the section they govern), so they're relocated down next to that
+      // section instead of sitting in the shared top toolbar. Always return
+      // them to the toolbar first: whichever panel currently holds one is
+      // about to have its innerHTML rebuilt, which would destroy it if left
+      // in place.
+      [seasonSel, heatmapSortSel, searchEl].forEach(el => {
+        if (el.parentElement !== controlsBar) controlsBar.insertBefore(el, timelinePicker);
+      });
 
       const renderers = {
         overview: renderOverview,
@@ -2409,6 +2462,21 @@
         viewership: renderViewership,
       };
       (renderers[activeTab] || renderOverview)();
+
+      if (activeTab === "overview") {
+        const anchor = document.getElementById("overview-season-anchor");
+        if (anchor) anchor.appendChild(seasonSel);
+      } else if (activeTab === "pairs-v2") {
+        const anchor = document.getElementById("pairsv2-season-anchor");
+        if (anchor) anchor.appendChild(seasonSel);
+      } else if (activeTab === "heatmap") {
+        const anchor = document.getElementById("heatmap-controls-anchor");
+        if (anchor) {
+          anchor.appendChild(searchEl);
+          anchor.appendChild(seasonSel);
+          anchor.appendChild(heatmapSortSel);
+        }
+      }
     }
 
     function pct(n, d) {
@@ -2530,6 +2598,7 @@
 
         <section>
           <h2>Most frequent characters</h2>
+          <div class="inline-season-picker" id="overview-season-anchor"></div>
           <p class="caption">${escapeHtml(analysisWindow(eps))} Share of these episodes each character appeared in credits for.</p>
           <div class="bar-rows">${buildBarRows(top, counts, maxCount, eps.length, { showDeparture: scopeAll })}</div>
         </section>`;
@@ -2695,6 +2764,7 @@
       content.innerHTML = `
         <section>
           <h2>Presence map</h2>
+          <div class="controls" id="heatmap-controls-anchor"></div>
           <p class="caption">${escapeHtml(analysisWindow(eps))} Filled squares mark episodes where a character was in the credits. Top ${names.length} characters by appearances in this range. Episode numbers run along the top (every 10 episodes). Click a name to open its timeline.</p>
           <div class="heatmap-wrap">
             <div class="heatmap" style="grid-template-columns: ${cols}">${body}</div>
@@ -2733,7 +2803,7 @@
         }
       });
 
-      return `<svg class="presence-svg" viewBox="0 0 ${w} ${h}" width="${w}" height="${h}">${bars}${lines}${hits}</svg>`;
+      return `<svg class="presence-svg" viewBox="0 0 ${w} ${h}" width="100%" height="${h}" preserveAspectRatio="none">${bars}${lines}${hits}</svg>`;
     }
 
     function setupPresenceHover(svg) {
@@ -2794,8 +2864,8 @@
             <div class="timeline-head-text">
               <h2>${nameHtml(timelineChar)}</h2>
               <p class="lede">${ledeText}</p>
-              ${status.text ? `<p class="caption${status.departed ? " departure" : ""}">${escapeHtml(status.text)}</p>` : ""}
-              <p class="caption">Share of episodes runs from this character's first tracked appearance through episode ${lastTrackedEp}. This dataset only tracks season 4 onward, so earlier history isn't reflected.</p>
+              ${status.text ? `<p class="status-line${status.departed ? " departure" : ""}">${escapeHtml(status.text)}</p>` : ""}
+              <p class="status-line">Share of episodes runs from this character's first tracked appearance through episode ${lastTrackedEp}. This dataset only tracks season 4 onward, so earlier history isn't reflected.</p>
             </div>
             ${photoHtml}
           </div>
@@ -2826,12 +2896,12 @@
 
     function sortAlphaIcon(active, asc) {
       const arrow = sortArrowPath(active, asc);
-      return `<span class="sort-icon" aria-hidden="true"><svg viewBox="0 0 20 20" width="14" height="14"><text x="1" y="8" font-size="7.5" font-family="ui-monospace,monospace" font-weight="700" fill="currentColor">A</text><text x="1" y="17" font-size="7.5" font-family="ui-monospace,monospace" font-weight="700" fill="currentColor">Z</text><path d="${arrow}" stroke="currentColor" stroke-width="1.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span>`;
+      return `<span class="sort-icon" aria-hidden="true"><svg viewBox="0 0 20 20" width="14" height="14"><text x="1" y="8" font-size="7.5" font-family="'JetBrains Mono', ui-monospace, monospace" font-weight="700" fill="currentColor">A</text><text x="1" y="17" font-size="7.5" font-family="'JetBrains Mono', ui-monospace, monospace" font-weight="700" fill="currentColor">Z</text><path d="${arrow}" stroke="currentColor" stroke-width="1.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span>`;
     }
 
     function sortNumIcon(active, asc) {
       const arrow = sortArrowPath(active, asc);
-      return `<span class="sort-icon" aria-hidden="true"><svg viewBox="0 0 20 20" width="14" height="14"><text x="0.5" y="9" font-size="7.5" font-family="ui-monospace,monospace" font-weight="700" fill="currentColor">9</text><text x="0.5" y="17" font-size="7.5" font-family="ui-monospace,monospace" font-weight="700" fill="currentColor">0</text><path d="${arrow}" stroke="currentColor" stroke-width="1.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span>`;
+      return `<span class="sort-icon" aria-hidden="true"><svg viewBox="0 0 20 20" width="14" height="14"><text x="0.5" y="9" font-size="7.5" font-family="'JetBrains Mono', ui-monospace, monospace" font-weight="700" fill="currentColor">9</text><text x="0.5" y="17" font-size="7.5" font-family="'JetBrains Mono', ui-monospace, monospace" font-weight="700" fill="currentColor">0</text><path d="${arrow}" stroke="currentColor" stroke-width="1.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span>`;
     }
 
     function renderByEpisode() {
@@ -3002,6 +3072,13 @@
     document.getElementById("search").addEventListener("input", render);
     document.getElementById("season-select").addEventListener("change", render);
     document.getElementById("timeline-select").addEventListener("change", render);
+    document.getElementById("timeline-shuffle").addEventListener("click", () => {
+      const sel = document.getElementById("timeline-select");
+      const options = [...sel.options].map(o => o.value).filter(v => v !== sel.value);
+      if (!options.length) return;
+      sel.value = options[Math.floor(Math.random() * options.length)];
+      render();
+    });
     document.getElementById("heatmap-sort").addEventListener("change", render);
     load();
   </script>
